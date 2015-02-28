@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">WQ</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="login">login in</string>
+    <string name="app_title">weiChat</string>
+    <string name="app_search">Search</string>
+    <string name="app_scan">Scan</string>
+    <string name="app_add">Add</string>
+    <string name="app_gChat">groupChat</string>
+    <string name="app_fBack">FeedBack</string>
+    <string name="view_map">Map</string>
+    <string name="view_photo">Photo</string>
+    <string name="view_customer">Customer</string>
+    <string name="view_myList">MyList</string>
+
+
+</resources>

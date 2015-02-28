@@ -1,0 +1,71 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ynsh="http://schemas.android.com/apk/res/com.bank.root.myapplication"
+    android:id="@+id/menu_blank"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Blank">
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager1"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></android.support.v4.view.ViewPager>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@drawable/tab"
+        android:orientation="horizontal">
+
+        <com.bank.root.myapplication.ChangeColorIconWithText
+            android:id="@+id/id_indicator_one"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+            ynsh:mColor="#ff14C8C8"
+            ynsh:mIcon="@drawable/location_map"
+            ynsh:mText="@string/view_map"
+            ynsh:mText_size="12sp" />
+
+        <com.bank.root.myapplication.ChangeColorIconWithText
+            android:id="@+id/id_indicator_two"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+            ynsh:mColor="#ff14C8C8"
+            ynsh:mIcon="@drawable/content_picture"
+            ynsh:mText="@string/view_photo"
+            ynsh:mText_size="12sp" />
+
+        <com.bank.root.myapplication.ChangeColorIconWithText
+            android:id="@+id/id_indicator_three"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+            ynsh:mColor="#ff14C8C8"
+            ynsh:mIcon="@drawable/collections_view_as_list"
+            ynsh:mText="@string/view_customer"
+            ynsh:mText_size="12sp" />
+
+        <com.bank.root.myapplication.ChangeColorIconWithText
+            android:id="@+id/id_indicator_four"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+            ynsh:mColor="#ff14C8C8"
+            ynsh:mIcon="@drawable/collections_sort_by_size"
+            ynsh:mText="@string/view_myList"
+            ynsh:mText_size="12sp" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

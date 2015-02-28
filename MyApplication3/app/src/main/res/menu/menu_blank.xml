@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Blank">
+    <item
+        android:id="@+id/action_search"
+        android:title="@string/app_search"
+        app:showAsAction="always"
+        android:icon="@drawable/action_search"
+
+        />
+    <item
+        android:id="@+id/action_group_chat"
+        android:icon="@drawable/social_cc_bcc"
+        android:title="@string/app_gChat"
+       />
+    <item
+        android:id="@+id/action_add"
+        android:icon="@drawable/content_new_event"
+        android:title="@string/app_add"/>
+    <item
+        android:id="@+id/action_scan"
+        android:icon="@drawable/content_select_all"
+        android:title="@string/app_scan"/>
+    <item
+        android:id="@+id/action_feedback"
+        android:icon="@drawable/content_read"
+        android:title="@string/app_fBack"/>
+
+</menu>
