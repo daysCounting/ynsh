@@ -73,7 +73,6 @@ public class map extends ActionBarActivity {
         mLocationClient = new LocationClient(this);
         myLocationListener = new MyLocationListener();
         mLocationClient.registerLocationListener(myLocationListener);
-
         LocationClientOption option = new LocationClientOption();
         option.setCoorType("bd09ll");
         option.setIsNeedAddress(true);

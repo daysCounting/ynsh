@@ -27,9 +27,6 @@ import Fragments.TabFragmentTwo;
 public class Blank extends ActionBarActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private ViewPager mViewPager;
     private List<Fragment> mTabs = new ArrayList<Fragment>();
-    private String[] mTitles = new String[]
-            {"First Fragment !", "Second Fragment !", "Third Fragment !",
-                    "Fourth Fragment !"};
     private FragmentPagerAdapter mAdapter;
     private List<ChangeColorIconWithText> mTabIndicators = new ArrayList<ChangeColorIconWithText>();
 
@@ -40,7 +37,6 @@ public class Blank extends ActionBarActivity implements View.OnClickListener, Vi
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_blank);
         setOverflowButtonAlways();
-         System.out.println("initView is open");
         initView();
         initDatas();
         mViewPager.setAdapter(mAdapter);
@@ -191,7 +187,6 @@ public class Blank extends ActionBarActivity implements View.OnClickListener, Vi
             case R.id.id_indicator_one:
                 mTabIndicators.get(0).setIconAlpha(1.0f, 0);
                 mViewPager.setCurrentItem(0, false);
-
                 break;
             case R.id.id_indicator_two:
                 mTabIndicators.get(1).setIconAlpha(1.0f, 0);
@@ -238,4 +233,4 @@ public class Blank extends ActionBarActivity implements View.OnClickListener, Vi
 
     }
 
-  }
+}

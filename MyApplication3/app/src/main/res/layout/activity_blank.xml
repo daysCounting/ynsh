@@ -8,11 +8,12 @@
     tools:context=".Blank">
 
 
-    <android.support.v4.view.ViewPager
+    <com.bank.root.myapplication.bean.ViewPagerCompat
         android:id="@+id/viewPager1"
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"></android.support.v4.view.ViewPager>
+        android:layout_height="1dp"
+        android:layout_weight="1"
+        ></com.bank.root.myapplication.bean.ViewPagerCompat>
 
     <LinearLayout
         android:layout_width="match_parent"
