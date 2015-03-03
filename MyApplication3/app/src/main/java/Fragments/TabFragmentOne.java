@@ -24,10 +24,12 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
+import com.bank.root.myapplication.ListView.SimpleTreeAdapter;
+import com.bank.root.myapplication.ListView.TreeListViewAdapter;
 import com.bank.root.myapplication.R;
+import com.bank.root.myapplication.bean.FileBean;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,6 +46,9 @@ public class TabFragmentOne extends Fragment {
     private ListView listView1;
     private SimpleAdapter simpleAdapter;
     private List<Map<String, Object>> list = new ArrayList();
+    private List<FileBean> mDatas = new ArrayList();
+    private ListView mTree;
+    private TreeListViewAdapter mAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,32 +65,55 @@ public class TabFragmentOne extends Fragment {
         dealMap();
         bt = (ImageButton) view.findViewById(R.id.imageButton);
         bt.setOnClickListener(Listener1);
-
-        listView1 = (ListView) view.findViewById(R.id.listView);
-        getSimpleAdapter();
-        listView1.setAdapter(simpleAdapter);
+     // listView
+        mDatas.clear();
+        initDatas();
+        mTree = (ListView) view.findViewById(R.id.listView);
+        try {
+            mAdapter = new SimpleTreeAdapter<FileBean>(mTree, getActivity().getApplicationContext(), mDatas, 0);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        mTree.setAdapter(mAdapter);
         return view;
     }
+//  getSimpleAdapter instance
+//    private void getSimpleAdapter() {
+//        list.clear();
+//        Map map = new HashMap<String, Object>();
+//        map.put("title", "find");
+//        map.put("content", "Content " + 1);
+//        list.add(map);
+//        for (int i = 1; i < 20; i++) {
+//            Map map2 = new HashMap<String, Object>();
+//            map2.put("title", null);
+//            map2.put("content", "Content " + i);
+//            list.add(map2);
+//        }
+//
+//
+//        simpleAdapter = new SimpleAdapter(getActivity().getApplicationContext(), list, R.layout.fragment_one_listview
+//                , new String[]{"title", "content"}, new int[]{R.id.textTitle, R.id.textContent});
+//
+//
+//    }
+    private void initDatas()
+    {
 
-    private void getSimpleAdapter() {
-        list.clear();
-        Map map = new HashMap<String, Object>();
-        map.put("title", "find");
-        map.put("content", "Content " + 1);
-        list.add(map);
-        for (int i = 1; i < 20; i++) {
-            Map map2 = new HashMap<String, Object>();
-            map2.put("title", null);
-            map2.put("content", "Content " + i);
-            list.add(map2);
-        }
+        // id , pid , label , 其他属性
+        mDatas.add(new FileBean(1, 0, "all task"));
+        mDatas.add(new FileBean(4, 1, "finish"));
+        mDatas.add(new FileBean(3, 1, "ing"));
+        mDatas.add(new FileBean(2, 1, "Give up"));
+        mDatas.add(new FileBean(5, 2, "one"));
+        mDatas.add(new FileBean(6, 2, "two"));
+        mDatas.add(new FileBean(7, 3, "3.1"));
+        mDatas.add(new FileBean(8, 3, "3.2"));
 
-
-        simpleAdapter = new SimpleAdapter(getActivity().getApplicationContext(), list, R.layout.fragment_one_listview
-                , new String[]{"title", "content"}, new int[]{R.id.textTitle, R.id.textContent});
 
 
     }
+
 
     public void dealMap() {
         int childCount = mMapView.getChildCount();
