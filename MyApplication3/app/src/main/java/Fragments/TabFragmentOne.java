@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 import android.widget.ZoomControls;
 
@@ -28,6 +27,7 @@ import com.bank.root.myapplication.ListView.SimpleTreeAdapter;
 import com.bank.root.myapplication.ListView.TreeListViewAdapter;
 import com.bank.root.myapplication.R;
 import com.bank.root.myapplication.bean.FileBean;
+import com.bank.root.myapplication.bean.Node;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +43,7 @@ public class TabFragmentOne extends Fragment {
     private double Latitude;
     private double Longitude;
     private ImageButton bt;
-    private ListView listView1;
-    private SimpleAdapter simpleAdapter;
+
     private List<Map<String, Object>> list = new ArrayList();
     private List<FileBean> mDatas = new ArrayList();
     private ListView mTree;
@@ -70,11 +69,12 @@ public class TabFragmentOne extends Fragment {
         initDatas();
         mTree = (ListView) view.findViewById(R.id.listView);
         try {
-            mAdapter = new SimpleTreeAdapter<FileBean>(mTree, getActivity().getApplicationContext(), mDatas, 2);
+            mAdapter = new SimpleTreeAdapter<FileBean>(mTree, getActivity().getApplicationContext(), mDatas, 1);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
         mTree.setAdapter(mAdapter);
+        initEvent();
         return view;
     }
 //  getSimpleAdapter instance
@@ -114,7 +114,19 @@ public class TabFragmentOne extends Fragment {
 
 
     }
+    private void initEvent(){
+        mAdapter.setOnTreeNodeClickListener(new TreeListViewAdapter.OnTreeNodeClickListener() {
+            @Override
+            public void onClick(Node node, int position) {
+                if(node.getLevel()>1 && node.isLeaf()){
+                    Toast.makeText(getActivity().getApplicationContext(), node.getName(),
+                            Toast.LENGTH_SHORT).show();
 
+                }
+
+            }
+        });
+    }
 
     public void dealMap() {
         int childCount = mMapView.getChildCount();

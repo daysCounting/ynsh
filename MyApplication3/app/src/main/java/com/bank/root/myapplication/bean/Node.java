@@ -120,7 +120,7 @@ public class Node {
      * @return
      */
     public int getLevel() {
-        return parent == null ? 1 : parent.getLevel() + 1;
+        return parent == null ? 0 : parent.getLevel() + 1;
     }
 
     public boolean isExpand() {

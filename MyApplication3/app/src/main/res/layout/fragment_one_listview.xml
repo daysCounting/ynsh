@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:minHeight="40dip"
     android:background="#14eeeeee"
+    android:minHeight="40dip"
 
     >
 
@@ -11,7 +11,7 @@
         android:id="@+id/id_treenode_icon"
         android:layout_width="10dp"
         android:layout_height="10dp"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="14dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:src="@drawable/a" />
@@ -20,20 +20,33 @@
         android:id="@+id/id_treenode_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/id_treenode_icon"
-        android:textSize="13dp"
         android:textColor="#9f0c0d18"
-        />
+        android:textSize="13dp" />
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="pwd"
-        android:id="@+id/textView"
-        android:layout_alignBottom="@+id/id_treenode_label"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/id_treenode_label"
+        android:text="" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/id_treenode_label"
+        android:id="@+id/Ry"
+        android:layout_marginTop="20dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=": ))"
+            />
+
+    </RelativeLayout>
 
 
 </RelativeLayout>

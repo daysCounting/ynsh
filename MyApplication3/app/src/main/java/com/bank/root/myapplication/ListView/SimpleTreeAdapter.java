@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bank.root.myapplication.R;
@@ -17,7 +18,7 @@ import java.util.List;
  */
 public class SimpleTreeAdapter<T> extends TreeListViewAdapter<T> {
     public SimpleTreeAdapter(ListView tree, Context context,
-                                     List<T> datas, int defaultExpandLevel)
+                             List<T> datas, int defaultExpandLevel)
             throws IllegalArgumentException, IllegalAccessException {
         super(tree, context, datas, defaultExpandLevel);
     }
@@ -33,21 +34,39 @@ public class SimpleTreeAdapter<T> extends TreeListViewAdapter<T> {
                     .findViewById(R.id.id_treenode_icon);
             holder.mText = (TextView) convertView
                     .findViewById(R.id.id_treenode_label);
+            holder.behindText = (TextView) convertView
+                    .findViewById(R.id.textView2);
+           holder.ry = (RelativeLayout) convertView.findViewById(R.id.Ry);
+
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-            holder.mIcon.setImageResource(node.getIcon());
+        holder.mIcon.setImageResource(node.getIcon());
 
+        if (node.getLevel() == 1 ) {
+            holder.behindText.setText("(" + node.getChildren().size() + ")");
+        }else{
+            holder.behindText.setText("");
+        }
 
         holder.mText.setText(node.getName());
 
+        if (node.getLevel() != 2)
+            holder.ry.setVisibility(View.GONE);
+        else
+            holder.ry.setVisibility(View.GONE);
         return convertView;
     }
+
+    public void showAndHide(){}
+
 
     private class ViewHolder {
         ImageView mIcon;
         TextView mText;
+        TextView behindText;
+        RelativeLayout ry;
     }
 }

@@ -75,10 +75,10 @@ public abstract class TreeListViewAdapter<T> extends BaseAdapter {
                                     int position, long id) {
                 expandOrCollapse(position);
 
-//                if (onTreeNodeClickListener != null) {
-//                    onTreeNodeClickListener.onClick(mNodes.get(position),
-//                            position);
-//                }
+                if (onTreeNodeClickListener != null) {
+                    onTreeNodeClickListener.onClick(mNodes.get(position),
+                            position);
+                }
             }
 
         });
