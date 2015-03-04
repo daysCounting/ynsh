@@ -37,12 +37,9 @@ public class SimpleTreeAdapter<T> extends TreeListViewAdapter<T> {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        if (node.getIcon() == -1) {
-            holder.mIcon.setVisibility(View.INVISIBLE); //样式错误改为GONE
-        } else {
-            holder.mIcon.setVisibility(View.VISIBLE);
+
             holder.mIcon.setImageResource(node.getIcon());
-        }
+
 
         holder.mText.setText(node.getName());
 

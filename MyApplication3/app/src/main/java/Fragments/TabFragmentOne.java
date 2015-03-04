@@ -65,12 +65,12 @@ public class TabFragmentOne extends Fragment {
         dealMap();
         bt = (ImageButton) view.findViewById(R.id.imageButton);
         bt.setOnClickListener(Listener1);
-     // listView
+     // listView  杀鸡用牛刀了.. <QAQ>
         mDatas.clear();
         initDatas();
         mTree = (ListView) view.findViewById(R.id.listView);
         try {
-            mAdapter = new SimpleTreeAdapter<FileBean>(mTree, getActivity().getApplicationContext(), mDatas, 0);
+            mAdapter = new SimpleTreeAdapter<FileBean>(mTree, getActivity().getApplicationContext(), mDatas, 2);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -101,14 +101,15 @@ public class TabFragmentOne extends Fragment {
     {
 
         // id , pid , label , 其他属性
-        mDatas.add(new FileBean(1, 0, "all task"));
-        mDatas.add(new FileBean(4, 1, "finish"));
-        mDatas.add(new FileBean(3, 1, "ing"));
-        mDatas.add(new FileBean(2, 1, "Give up"));
-        mDatas.add(new FileBean(5, 2, "one"));
-        mDatas.add(new FileBean(6, 2, "two"));
-        mDatas.add(new FileBean(7, 3, "3.1"));
-        mDatas.add(new FileBean(8, 3, "3.2"));
+
+        mDatas.add(new FileBean(1, 0, "任务栏"));
+        mDatas.add(new FileBean(4, 1, "已经完成"));
+        mDatas.add(new FileBean(3, 1, "正在进行"));
+        mDatas.add(new FileBean(2, 1, "暂时不执行"));
+        mDatas.add(new FileBean(5, 2, "张三"));
+        mDatas.add(new FileBean(6, 2, "李四"));
+        mDatas.add(new FileBean(7, 3, "王五"));
+        mDatas.add(new FileBean(8, 3, "秋季"));
 
 
 

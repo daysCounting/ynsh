@@ -160,7 +160,7 @@ public class TreeHelper {
         } else if (node.getChildren().size() > 0 && !node.isExpand()) {
             node.setIcon(R.drawable.tree_ec);
         } else
-            node.setIcon(-1);
+            node.setIcon(R.drawable.navigation_accept);
 
     }
 }
