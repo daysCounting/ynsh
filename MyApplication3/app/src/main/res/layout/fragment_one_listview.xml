@@ -7,44 +7,103 @@
 
     >
 
-    <ImageView
-        android:id="@+id/id_treenode_icon"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:src="@drawable/a" />
+    <LinearLayout
+        android:id="@+id/Ly"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/id_treenode_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@id/id_treenode_icon"
-        android:textColor="#9f0c0d18"
-        android:textSize="13dp" />
+        <ImageView
+            android:id="@+id/id_treenode_icon"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/a" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/id_treenode_label"
-        android:text="" />
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/id_treenode_label"
-        android:id="@+id/Ry"
-        android:layout_marginTop="20dp"
-        >
         <TextView
+            android:id="@+id/id_treenode_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=": ))"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/id_treenode_icon"
+            android:textColor="#9f0c0d18"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/id_treenode_label"
+            android:text=""
+
             />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/Ry1"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:id="@+id/id_kid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:textColor="#9f0c0d18"
+            android:textSize="13dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/Ry"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="-50dp"
+        android:layout_marginTop="40dp"
+        android:background="#ff48a044"
+        android:clickable="false">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="51dp"
+            android:layout_marginStart="51dp"
+            android:layout_toRightOf="@+id/textView4"
+            android:enabled="true"
+            android:gravity="center_vertical"
+            android:text="||" />
+
+        <Button
+            android:id="@+id/upLoad"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="完成" />
+
+        <Button
+            android:id="@+id/takePhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/upLoad"
+            android:layout_toStartOf="@+id/upLoad"
+            android:text="编辑" />
+
 
     </RelativeLayout>
 

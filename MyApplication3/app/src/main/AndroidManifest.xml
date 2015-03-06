@@ -23,8 +23,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Second"
-            android:label="Second Activity">
+            android:name=".GetInformation"
+            android:label="信息录入">
             <intent-filter>
                 <action android:name="com.litreily.activity_second" />
                 <category android:name="android.intent.category.DEFAULT" />

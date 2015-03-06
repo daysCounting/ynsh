@@ -1,0 +1,76 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".Blank"
+    android:id="@+id/menu_blank">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Congratulation, you jump succeed!"
+        android:textSize="20sp"
+        android:textColor="#562555"
+        android:textStyle="bold"
+        android:id="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+
+    <TextView
+        android:layout_width="180dp"
+        android:layout_height="70dp"
+        android:text="您现在在:"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/textView2"
+        android:layout_alignRight="@+id/textView2"
+        android:layout_alignEnd="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="upLoad"
+        android:id="@+id/button2"
+        android:background="@drawable/round_shape"
+
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowColor="#ff5b5e5a"
+        android:shadowRadius="5"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/imageView2"
+        android:layout_alignEnd="@+id/imageView2" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Take Photo"
+        android:id="@+id/button4"
+        android:background="@drawable/round_shape"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowColor="#ff5b5e5a"
+        android:shadowRadius="5"
+        android:layout_marginLeft="39dp"
+        android:layout_marginStart="39dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="500dp"
+        android:layout_height="200dp"
+        android:id="@+id/imageView2"
+        android:layout_above="@+id/button2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+
+
+</RelativeLayout>

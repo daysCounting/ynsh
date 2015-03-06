@@ -9,10 +9,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
@@ -21,70 +18,28 @@ import java.io.File;
 /**
  * Created by root on 15-2-16.
  */
-public class Second extends ActionBarActivity {
-    private CheckBox ck1;
-    private CheckBox ck2;
-    private String a = "";
-    private String b = "";
-    private RadioGroup RG;
+public class GetInformation extends ActionBarActivity {
     private TextView Tv;
     private Button bt2;
     private Button photo;
     private ImageView imgV2;
+    private String use;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //引入布局文件;
-        setContentView(R.layout.activity_second);
-
-        ck1 = (CheckBox) findViewById(R.id.checkBox);
-        ck2 = (CheckBox) findViewById(R.id.checkBox2);
-        ck1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                a += (isChecked ? ck1.getText().toString() : "") + " ";
-            }
-        });
-
-        ck2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                a += (isChecked ? ck2.getText().toString() : "") + " ";
-            }
-        });
-
-        RG = (RadioGroup) findViewById(R.id.randioGroup);
-
-        RG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.radioButton:
-                        b = "in 0~10";
-                        break;
-                    case R.id.radioButton2:
-                        b = "in 11~20";
-                        break;
-                    case R.id.radioButton3:
-                        b = "in above 20";
-                    default:
-                        break;
-                }
-            }
-        });
-
+        setContentView(R.layout.activity_information);
+        Intent intent = getIntent();
+        use = intent.getStringExtra("Name");
 
         Tv = (TextView) findViewById(R.id.textView3);
-        Tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent data1 = new Intent();
-                data1.putExtra("data", a + b);
-                setResult(2, data1);
-                finish();
+        String Longitude = intent.getStringExtra("Longitude");
+        Tv.setText("您现在在:" + intent.getStringExtra("LocalAddress") +
+                        "  Longitude: " + intent.getDoubleExtra("Longitude", -1) +
+                        "  Latitude: " + intent.getDoubleExtra("Latitude", -1) +
+                        "       Name: " + intent.getStringExtra("Name")
 
-            }
-        });
+        );
 
         bt2 = (Button) findViewById(R.id.button2);
         bt2.setOnClickListener(new View.OnClickListener() {
@@ -100,12 +55,13 @@ public class Second extends ActionBarActivity {
         photo.setOnClickListener(takePhoto);
 
     }
+
     View.OnClickListener takePhoto = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File("/sdcard/Pictures/test", "temp.jpg")));
-            startActivityForResult(intent,1);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File("/sdcard/Pictures/test", use + ".jpg")));
+            startActivityForResult(intent, 1);
         }
     };
 
@@ -114,11 +70,12 @@ public class Second extends ActionBarActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             // 设置文件保存路径
+
             File picture = new File(
-                    "/sdcard/Pictures/test/temp.jpg");
-               Bitmap bitmap1 = BitmapFactory.decodeFile("/sdcard/Pictures/test/temp.jpg");
+                    "/sdcard/Pictures/test/" + use + ".jpg");
+            Bitmap bitmap1 = BitmapFactory.decodeFile("/sdcard/Pictures/test/" + use + ".jpg");
             imgV2.setImageBitmap(bitmap1);
-         //   startPhotoZoom(Uri.fromFile(picture));
+            //   startPhotoZoom(Uri.fromFile(picture));
         }
         if (requestCode == 3) {
             Bundle extras = data.getExtras();

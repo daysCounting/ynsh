@@ -24,10 +24,9 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.bank.root.myapplication.ListView.SimpleTreeAdapter;
-import com.bank.root.myapplication.ListView.TreeListViewAdapter;
 import com.bank.root.myapplication.R;
 import com.bank.root.myapplication.bean.FileBean;
-import com.bank.root.myapplication.bean.Node;
+import com.bank.root.myapplication.bean.LocalAddress;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,12 +41,14 @@ public class TabFragmentOne extends Fragment {
     private Context context;
     private double Latitude;
     private double Longitude;
+    private LocalAddress localAddress;
+    private String address;
     private ImageButton bt;
 
     private List<Map<String, Object>> list = new ArrayList();
     private List<FileBean> mDatas = new ArrayList();
     private ListView mTree;
-    private TreeListViewAdapter mAdapter;
+    private SimpleTreeAdapter mAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,7 +61,7 @@ public class TabFragmentOne extends Fragment {
         MapStatusUpdate msu = MapStatusUpdateFactory.zoomTo(18.0f);
         mBaiduMap.setMapStatus(msu);
         mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
-        initLocation();
+
         dealMap();
         bt = (ImageButton) view.findViewById(R.id.imageButton);
         bt.setOnClickListener(Listener1);
@@ -68,13 +69,15 @@ public class TabFragmentOne extends Fragment {
         mDatas.clear();
         initDatas();
         mTree = (ListView) view.findViewById(R.id.listView);
+        if(initLocation())
         try {
-            mAdapter = new SimpleTreeAdapter<FileBean>(mTree, getActivity().getApplicationContext(), mDatas, 1);
+            mAdapter = new SimpleTreeAdapter<FileBean>
+            (mTree, getActivity().getApplicationContext(), mDatas, 1);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
         mTree.setAdapter(mAdapter);
-        initEvent();
+
         return view;
     }
 //  getSimpleAdapter instance
@@ -114,19 +117,7 @@ public class TabFragmentOne extends Fragment {
 
 
     }
-    private void initEvent(){
-        mAdapter.setOnTreeNodeClickListener(new TreeListViewAdapter.OnTreeNodeClickListener() {
-            @Override
-            public void onClick(Node node, int position) {
-                if(node.getLevel()>1 && node.isLeaf()){
-                    Toast.makeText(getActivity().getApplicationContext(), node.getName(),
-                            Toast.LENGTH_SHORT).show();
 
-                }
-
-            }
-        });
-    }
 
     public void dealMap() {
         int childCount = mMapView.getChildCount();
@@ -205,7 +196,7 @@ public class TabFragmentOne extends Fragment {
         mMapView.onPause();
     }
 
-    private void initLocation() {
+    private boolean initLocation() {
         mLocationClient = new LocationClient(getActivity().getApplicationContext());
         myLocationListener = new MyLocationListener();
         mLocationClient.registerLocationListener(myLocationListener);
@@ -216,6 +207,7 @@ public class TabFragmentOne extends Fragment {
         option.setOpenGps(true);
         option.setScanSpan(1000);
         mLocationClient.setLocOption(option);
+        return true;
     }
 
     private class MyLocationListener implements BDLocationListener {
@@ -235,10 +227,12 @@ public class TabFragmentOne extends Fragment {
                 MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(latlng);
                 mBaiduMap.animateMapStatus(msu);
                 isFirstIn = false;
-
+                localAddress = new LocalAddress(bdLocation.getLatitude(), bdLocation.getLongitude(), bdLocation.getAddrStr());
+                address = bdLocation.getAddrStr();
+                mAdapter.getLocalAddress(localAddress);
                 Toast.makeText(context, "你现在在: " + bdLocation.getAddrStr(), Toast.LENGTH_SHORT).show();
-                // tv5.setText(bdLocation.getAddrStr());
             }
+
         }
     }
 }

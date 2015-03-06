@@ -13,18 +13,22 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import com.bank.root.myapplication.bean.LocalAddress;
 import com.bank.root.myapplication.bean.Node;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class TreeListViewAdapter<T> extends BaseAdapter {
 
+    protected List<Integer> hide = new ArrayList<>();
     protected Context mContext;
     /**
      * 存储所有可见的Node
      */
     protected List<Node> mNodes;
     protected LayoutInflater mInflater;
+    protected LocalAddress mLocalAddress;
     /**
      * 存储所有的Node
      */
@@ -34,6 +38,7 @@ public abstract class TreeListViewAdapter<T> extends BaseAdapter {
      * 点击的回调接口
      */
     private OnTreeNodeClickListener onTreeNodeClickListener;
+
 
     public interface OnTreeNodeClickListener {
         void onClick(Node node, int position);
@@ -56,6 +61,7 @@ public abstract class TreeListViewAdapter<T> extends BaseAdapter {
                                int defaultExpandLevel) throws IllegalArgumentException,
             IllegalAccessException {
         mContext = context;
+
         /**
          * 对所有的Node进行排序
          */
@@ -64,6 +70,8 @@ public abstract class TreeListViewAdapter<T> extends BaseAdapter {
          * 过滤出可见的Node
          */
         mNodes = TreeHelper.filterVisibleNode(mAllNodes);
+
+
         mInflater = LayoutInflater.from(context);
         notifyDataSetChanged();
         /**
