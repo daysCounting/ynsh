@@ -53,6 +53,12 @@ public class GetInformation extends ActionBarActivity {
         imgV2 = (ImageView) findViewById(R.id.imageView2);
         // get SD path
         photo.setOnClickListener(takePhoto);
+        File picture = new File(
+                "/sdcard/Pictures/test/" + use + ".jpg");
+        if(picture.exists()){
+            Bitmap bitmap1 = BitmapFactory.decodeFile("/sdcard/Pictures/test/" + use + ".jpg");
+            imgV2.setImageBitmap(bitmap1);
+        }
 
     }
 
@@ -60,7 +66,7 @@ public class GetInformation extends ActionBarActivity {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File("/sdcard/Pictures/test", use + ".jpg")));
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File("/sdcard/Pictures/test/", use + ".jpg")));
             startActivityForResult(intent, 1);
         }
     };

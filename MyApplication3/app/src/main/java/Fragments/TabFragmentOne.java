@@ -37,12 +37,12 @@ public class TabFragmentOne extends Fragment {
     private BaiduMap mBaiduMap;
     private LocationClient mLocationClient;
     private MyLocationListener myLocationListener;
-    private boolean isFirstIn = true;
+    public boolean isFirstIn = true;
     private Context context;
     private double Latitude;
     private double Longitude;
     private LocalAddress localAddress;
-    private String address;
+    private String address = null;
     private ImageButton bt;
 
     private List<Map<String, Object>> list = new ArrayList();
@@ -65,22 +65,32 @@ public class TabFragmentOne extends Fragment {
         dealMap();
         bt = (ImageButton) view.findViewById(R.id.imageButton);
         bt.setOnClickListener(Listener1);
-     // listView  杀鸡用牛刀了.. <QAQ>
-        mDatas.clear();
+        // listView  杀鸡用牛刀了.. <QAQ>
+
         initDatas();
         mTree = (ListView) view.findViewById(R.id.listView);
-        if(initLocation())
-        try {
-            mAdapter = new SimpleTreeAdapter<FileBean>
-            (mTree, getActivity().getApplicationContext(), mDatas, 1);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        if (initLocation())
+            getAdapter();
+
+
         mTree.setAdapter(mAdapter);
 
         return view;
     }
-//  getSimpleAdapter instance
+
+    public void getAdapter() {
+
+        try {
+            mAdapter = new SimpleTreeAdapter<FileBean>
+                    (mTree, getActivity().getApplicationContext(), mDatas, 1);
+            mAdapter.notifyDataSetChanged();
+
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //  getSimpleAdapter instance
 //    private void getSimpleAdapter() {
 //        list.clear();
 //        Map map = new HashMap<String, Object>();
@@ -100,11 +110,10 @@ public class TabFragmentOne extends Fragment {
 //
 //
 //    }
-    private void initDatas()
-    {
+    private void initDatas() {
 
         // id , pid , label , 其他属性
-
+        mDatas.clear();
         mDatas.add(new FileBean(1, 0, "任务栏"));
         mDatas.add(new FileBean(4, 1, "已经完成"));
         mDatas.add(new FileBean(3, 1, "正在进行"));
@@ -113,7 +122,6 @@ public class TabFragmentOne extends Fragment {
         mDatas.add(new FileBean(6, 2, "李四"));
         mDatas.add(new FileBean(7, 3, "王五"));
         mDatas.add(new FileBean(8, 3, "秋季"));
-
 
 
     }
@@ -187,6 +195,11 @@ public class TabFragmentOne extends Fragment {
     public void onResume() {
         super.onResume();
         mMapView.onResume();
+        resumenHere();
+        if (!isFirstIn) {
+            setLocation();
+            getAdapter();
+        }
 
     }
 
@@ -196,7 +209,7 @@ public class TabFragmentOne extends Fragment {
         mMapView.onPause();
     }
 
-    private boolean initLocation() {
+    public boolean initLocation() {
         mLocationClient = new LocationClient(getActivity().getApplicationContext());
         myLocationListener = new MyLocationListener();
         mLocationClient.registerLocationListener(myLocationListener);
@@ -210,6 +223,17 @@ public class TabFragmentOne extends Fragment {
         return true;
     }
 
+    public void setLocation() {
+        localAddress = new LocalAddress(Latitude, Longitude, address);
+        mAdapter.setLocalAddress(localAddress);
+    }
+
+    private void resumenHere() {
+        LatLng latlng = new LatLng(Latitude, Longitude);
+        MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(latlng);
+        mBaiduMap.animateMapStatus(msu);
+    }
+
     private class MyLocationListener implements BDLocationListener {
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
@@ -219,20 +243,23 @@ public class TabFragmentOne extends Fragment {
                     .longitude(bdLocation.getLongitude()).build();
             mBaiduMap.setMyLocationData(data);
 
+
+            address = bdLocation.getAddrStr();
             Latitude = bdLocation.getLatitude();
             Longitude = bdLocation.getLongitude();
-            if (isFirstIn) {
+            setLocation();
 
+
+            if (isFirstIn) {
                 LatLng latlng = new LatLng(bdLocation.getLatitude(), bdLocation.getLongitude());
                 MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(latlng);
+
                 mBaiduMap.animateMapStatus(msu);
                 isFirstIn = false;
-                localAddress = new LocalAddress(bdLocation.getLatitude(), bdLocation.getLongitude(), bdLocation.getAddrStr());
-                address = bdLocation.getAddrStr();
-                mAdapter.getLocalAddress(localAddress);
                 Toast.makeText(context, "你现在在: " + bdLocation.getAddrStr(), Toast.LENGTH_SHORT).show();
             }
 
         }
     }
+
 }

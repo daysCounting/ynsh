@@ -1,6 +1,8 @@
 package com.bank.root.myapplication;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -29,6 +31,13 @@ public class Blank extends ActionBarActivity implements View.OnClickListener, Vi
     private List<Fragment> mTabs = new ArrayList<Fragment>();
     private FragmentPagerAdapter mAdapter;
     private List<ChangeColorIconWithText> mTabIndicators = new ArrayList<ChangeColorIconWithText>();
+    private ConnectionChangeReceiver myReceiver;
+
+
+    private TabFragmentOne tabFragmentOne;
+    private TabFragmentTwo tabFragmentTwo;
+    private TabFragmentThree tabFragmentThree;
+    private TabFragmentFour tabFragmentFour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +46,19 @@ public class Blank extends ActionBarActivity implements View.OnClickListener, Vi
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_blank);
         setOverflowButtonAlways();
+        registerReceiver();
         initView();
         initDatas();
         mViewPager.setAdapter(mAdapter);
         initEvent();
 
 
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver();
     }
 
     private void initView() {
@@ -68,20 +83,17 @@ public class Blank extends ActionBarActivity implements View.OnClickListener, Vi
 
     private void initDatas() {
         //Fragment one ;
-            TabFragmentOne tabFragmentOne = new TabFragmentOne();
+        tabFragmentOne = new TabFragmentOne();
 //            Bundle bundle = new Bundle();
 //            bundle.putString(TabFragmentOne.TITLE, mTitles[0]);
 //            tabFragmentOne.setArguments(bundle);
 
-            mTabs.add(tabFragmentOne);
-         //Fragment two;
-        TabFragmentTwo tabFragmentTwo = new TabFragmentTwo();
+        mTabs.add(tabFragmentOne);
+        tabFragmentTwo = new TabFragmentTwo();
         mTabs.add(tabFragmentTwo);
-        //Fragment three;
-        TabFragmentThree tabFragmentThree = new TabFragmentThree();
+        tabFragmentThree = new TabFragmentThree();
         mTabs.add(tabFragmentThree);
-        //TabFragment Four
-        TabFragmentFour tabFragmentFour = new TabFragmentFour();
+        tabFragmentFour = new TabFragmentFour();
         mTabs.add(tabFragmentFour);
 
         mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -231,6 +243,20 @@ public class Blank extends ActionBarActivity implements View.OnClickListener, Vi
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    private void registerReceiver() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        myReceiver = new ConnectionChangeReceiver();
+        this.registerReceiver(myReceiver, filter);
+    }
+
+    private void unregisterReceiver() {
+        this.unregisterReceiver(myReceiver);
+    }
+
+    public TabFragmentOne getTabFragmentOne() {
+        return tabFragmentOne;
     }
 
 }

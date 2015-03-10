@@ -12,7 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bank.root.myapplication.ConnectionChangeReceiver;
 import com.bank.root.myapplication.GetInformation;
 import com.bank.root.myapplication.R;
 import com.bank.root.myapplication.bean.LocalAddress;
@@ -24,6 +26,7 @@ import java.util.List;
  * Created by root on 15-3-3.
  */
 public class SimpleTreeAdapter<T> extends TreeListViewAdapter<T> {
+    ConnectionChangeReceiver myReceiver = new ConnectionChangeReceiver();
 
     public SimpleTreeAdapter(ListView tree, Context context,
                              List<T> datas, int defaultExpandLevel)
@@ -54,7 +57,7 @@ public class SimpleTreeAdapter<T> extends TreeListViewAdapter<T> {
                     findViewById(R.id.Ly);
             holder.kidText = (TextView) convertView.
                     findViewById(R.id.id_kid);
-            holder.takePhtot = (Button) convertView.
+            holder.takePhoto = (Button) convertView.
                     findViewById(R.id.takePhoto);
             holder.upLoad = (Button) convertView.
                     findViewById(R.id.upLoad);
@@ -87,8 +90,14 @@ public class SimpleTreeAdapter<T> extends TreeListViewAdapter<T> {
             holder.ry1.setVisibility(View.VISIBLE);
             holder.ly.setVisibility(View.GONE);
             holder.kidText.setText(node.getName());
-            mClick(holder, node.getLevel(), position);
-            toolClick(holder, node);
+            if (!node.getParent().getName().equals("正在进行")) {
+                holder.ry1.setClickable(false);
+            }else{
+                mClick(holder, node.getLevel(), position);
+
+                if(mLocalAddress != null)
+                    toolClick(holder, node);
+            }
         }
         return convertView;
     }
@@ -153,27 +162,38 @@ public class SimpleTreeAdapter<T> extends TreeListViewAdapter<T> {
     }
 
 
-    public void toolClick(ViewHolder holder,Node node) {
+    public void toolClick(ViewHolder holder, Node node) {
+
+
         final ViewHolder finalHolder = holder;
         final Node finalNode = node;
-        holder.takePhtot.setOnClickListener(new View.OnClickListener() {
+        holder.takePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent("com.litreily.activity_second");
-                intent.putExtra("Name", finalNode.getName());
-                intent.putExtra("Latitude", mLocalAddress.getLatitude());
-                intent.putExtra("Longitude", mLocalAddress.getLongitude());
-                intent.putExtra("LocalAddress", mLocalAddress.getLocalAddress());
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.setClass(mContext,  GetInformation.class);
-                mContext.startActivity(intent);
+                if (myReceiver.isNet()) {
+                    Intent intent = new Intent("com.litreily.activity_second");
+                    intent.putExtra("Name", finalNode.getName());
+                    intent.putExtra("Latitude", mLocalAddress.getLatitude());
+                    intent.putExtra("Longitude", mLocalAddress.getLongitude());
+                    intent.putExtra("LocalAddress", mLocalAddress.getLocalAddress());
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.setClass(mContext, GetInformation.class);
+                    mContext.startActivity(intent);
+                } else {
+                    Toast.makeText(mContext,
+                            "亲，网络连了么!!", Toast.LENGTH_LONG)
+                            .show();
+                }
+
+
             }
         });
-    }
-   public void getLocalAddress(LocalAddress localAddress){
-       mLocalAddress = localAddress;
-   }
 
+    }
+
+    public void setLocalAddress(LocalAddress localAddress) {
+        mLocalAddress = localAddress;
+    }
 
     private class ViewHolder {
         ImageView mIcon;
@@ -182,7 +202,9 @@ public class SimpleTreeAdapter<T> extends TreeListViewAdapter<T> {
         RelativeLayout ry, ry1;
         LinearLayout ly;
         TextView kidText;
-        Button takePhtot;
+        Button takePhoto;
         Button upLoad;
     }
+
+
 }
