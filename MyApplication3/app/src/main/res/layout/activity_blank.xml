@@ -39,8 +39,8 @@
             android:layout_weight="1"
             android:padding="5dp"
             ynsh:mColor="#ff14C8C8"
-            ynsh:mIcon="@drawable/content_picture"
-            ynsh:mText="@string/view_photo"
+            ynsh:mIcon="@drawable/collections_view_as_list"
+            ynsh:mText="@string/view_customer"
             ynsh:mText_size="12sp" />
 
         <com.bank.root.myapplication.ChangeColorIconWithText
@@ -50,8 +50,8 @@
             android:layout_weight="1"
             android:padding="5dp"
             ynsh:mColor="#ff14C8C8"
-            ynsh:mIcon="@drawable/collections_view_as_list"
-            ynsh:mText="@string/view_customer"
+            ynsh:mIcon="@drawable/content_picture"
+            ynsh:mText="@string/view_photo"
             ynsh:mText_size="12sp" />
 
         <com.bank.root.myapplication.ChangeColorIconWithText

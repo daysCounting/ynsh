@@ -15,5 +15,9 @@
     <string name="view_customer">Customer</string>
     <string name="view_myList">MyList</string>
 
+    <string name="dialog_message">Zzzzzzzzzzzz</string>
+    <string name="dialog_ok">OK</string>
+    <string name="list_item_left_button">约~~</string>
+    <string name="list_item_right_button">不约!</string>
 
 </resources>

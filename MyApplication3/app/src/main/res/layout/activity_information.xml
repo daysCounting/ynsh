@@ -52,26 +52,20 @@
         android:text="Take Photo"
         android:id="@+id/button4"
         android:background="@drawable/round_shape"
-        android:shadowDx="3"
-        android:shadowDy="3"
-        android:shadowColor="#ff5b5e5a"
-        android:shadowRadius="5"
-        android:layout_marginLeft="39dp"
-        android:layout_marginStart="39dp"
+
+
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <ImageView
-        android:layout_width="450dp"
-        android:layout_height="200dp"
+        android:layout_width="180dp"
+        android:layout_height="300dp"
         android:id="@+id/imageView2"
+        android:layout_marginBottom="20dp"
         android:layout_above="@+id/button2"
-        android:layout_marginBottom="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-
-        />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 
 
