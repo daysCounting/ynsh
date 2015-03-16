@@ -1,16 +1,23 @@
 package com.bank.root.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bank.root.myapplication.bean.FormFile;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -18,8 +25,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import Fragments.TabFragmentOne;
+import Util.SocketHttpRequester;
 
 /**
  * Created by root on 15-2-16.
@@ -30,16 +42,28 @@ public class GetInformation extends ActionBarActivity {
     private Button photo;
     private ImageView imgV2;
     private String use;
+    private double Longitude;
+    private double Latitude;
+    private Handler handler;
+    private Context context;
+
     private File picture;
     private final int tPhoto = 1;
     private final int cutPhoto = 2;
 
-    private static String localTempImageFileName = "";
+    //private static String localTempImageFileName = "";
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //引入布局文件;
+        context = getApplicationContext();
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectDiskReads().detectDiskWrites().detectNetwork()
+                .penaltyLog().build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                .detectLeakedSqlLiteObjects().penaltyLog().penaltyDeath()
+                .build());
         setContentView(R.layout.activity_information);
         Intent intent = getIntent();
         use = intent.getStringExtra("Name");
@@ -54,12 +78,7 @@ public class GetInformation extends ActionBarActivity {
         );
 
         bt2 = (Button) findViewById(R.id.button2);
-        bt2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent("com.litreily.activity_map"));
-            }
-        });
+        bt2.setOnClickListener(uploda);
 
         photo = (Button) findViewById(R.id.button4);
         imgV2 = (ImageView) findViewById(R.id.imageView2);
@@ -105,6 +124,59 @@ public class GetInformation extends ActionBarActivity {
         }
     };
 
+    View.OnClickListener uploda = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            handler = new Handler();
+            handler.post(runnable);
+
+
+        }
+    };
+    Runnable runnable = new Runnable() {
+
+        public void run() {
+
+
+            uploadFile();
+            //handler.postDelayed(runnable, 50000);
+        }
+
+    };
+
+    public void uploadFile() {
+        String url1 = "http://10.46.64.4:80/ashx/AppWebServer.ashx";
+        URL url = null;
+        try {
+            url = new URL(url1);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        Map<String, Object> params = new HashMap<>();
+//        params.put("PersonName", use);
+//        params.put("TellerCode", "8570780");
+//        params.put("Latitude", Latitude);
+//        params.put("Longitude", Longitude);
+//        params.put("fileName", picture.getName());
+
+        FormFile formfile = new FormFile(picture.getName(), picture, "image", "application/octet-stream");
+
+
+        try {
+            if(SocketHttpRequester.post(url, params, formfile)){
+                Toast.makeText(context,"Congratulation",Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(context,"Sorry,upload failed",Toast.LENGTH_SHORT).show();
+
+            }
+        } catch (Exception e) {
+            Log.i(".....!", e.toString());
+            e.printStackTrace();
+        }
+
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -114,10 +186,10 @@ public class GetInformation extends ActionBarActivity {
                     // 设置文件保存路径
                     BitmapFactory.Options options = new BitmapFactory.Options();
                     options.inJustDecodeBounds = true;
-                     BitmapFactory.decodeFile("/sdcard/Pictures/test/" + use + ".jpg", options);
-                    options.inSampleSize = computeSampleSize(options, -1, 800* 600);
+                    BitmapFactory.decodeFile("/sdcard/Pictures/test/" + use + ".jpg", options);
+                    options.inSampleSize = computeSampleSize(options, -1, 800 * 600);
                     options.inJustDecodeBounds = false;
-                    Bitmap  bitmap1 = BitmapFactory.decodeFile("/sdcard/Pictures/test/" + use + ".jpg", options);
+                    Bitmap bitmap1 = BitmapFactory.decodeFile("/sdcard/Pictures/test/" + use + ".jpg", options);
                     BufferedOutputStream stream = null;
                     try {
                         stream = new BufferedOutputStream(
@@ -150,6 +222,7 @@ public class GetInformation extends ActionBarActivity {
             }
     }
 
+    //设置压缩图片比例并微调
     public static int computeSampleSize(BitmapFactory.Options options, int minSideLength, int maxNumOfPixels) {
         int initialSize = computeInitialSampleSize(options, minSideLength, maxNumOfPixels);
         int roundedSize;
@@ -164,6 +237,7 @@ public class GetInformation extends ActionBarActivity {
         return roundedSize;
     }
 
+    //根据原图大小设置相关比
 
     private static int computeInitialSampleSize(BitmapFactory.Options options, int minSideLength, int maxNumOfPixels) {
         double w = options.outWidth;
@@ -183,20 +257,5 @@ public class GetInformation extends ActionBarActivity {
         }
     }
 
-    public void startPhotoZoom(Uri uri) {
-        Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
-        intent.putExtra("crop", "true");
-        // aspectX aspectY 是宽高的比例
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-        // outputX outputY 是裁剪图片宽高
-        intent.putExtra("outputX", 300);
-        intent.putExtra("outputY", 300);
-        intent.putExtra("return-data", true);
-        intent.putExtra("noFaceDetection", true);
-
-        startActivityForResult(intent, cutPhoto);
-    }
 
 }

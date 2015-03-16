@@ -21,7 +21,7 @@
         android:background="@drawable/tab"
         android:orientation="horizontal">
 
-        <com.bank.root.myapplication.ChangeColorIconWithText
+        <Util.ChangeColorIconWithText
             android:id="@+id/id_indicator_one"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
@@ -32,7 +32,7 @@
             ynsh:mText="@string/view_map"
             ynsh:mText_size="12sp" />
 
-        <com.bank.root.myapplication.ChangeColorIconWithText
+        <Util.ChangeColorIconWithText
             android:id="@+id/id_indicator_two"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
@@ -43,7 +43,7 @@
             ynsh:mText="@string/view_customer"
             ynsh:mText_size="12sp" />
 
-        <com.bank.root.myapplication.ChangeColorIconWithText
+        <Util.ChangeColorIconWithText
             android:id="@+id/id_indicator_three"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
@@ -54,7 +54,7 @@
             ynsh:mText="@string/view_photo"
             ynsh:mText_size="12sp" />
 
-        <com.bank.root.myapplication.ChangeColorIconWithText
+        <Util.ChangeColorIconWithText
             android:id="@+id/id_indicator_four"
             android:layout_width="0dp"
             android:layout_height="fill_parent"

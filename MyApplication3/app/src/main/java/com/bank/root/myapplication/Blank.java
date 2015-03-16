@@ -25,6 +25,8 @@ import Fragments.TabFragmentFour;
 import Fragments.TabFragmentOne;
 import Fragments.TabFragmentThree;
 import Fragments.TabFragmentTwo;
+import Util.ChangeColorIconWithText;
+import Util.ConnectionChangeReceiver;
 
 public class Blank extends ActionBarActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private ViewPager mViewPager;

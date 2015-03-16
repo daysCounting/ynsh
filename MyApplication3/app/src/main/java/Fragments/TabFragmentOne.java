@@ -120,7 +120,7 @@ public class TabFragmentOne extends Fragment {
         mDatas.add(new FileBean(2, 1, "暂时不执行"));
         mDatas.add(new FileBean(5, 2, "张三"));
         mDatas.add(new FileBean(6, 2, "李四"));
-        mDatas.add(new FileBean(7, 3, "王五"));
+        mDatas.add(new FileBean(7, 3, "xixi"));
         mDatas.add(new FileBean(8, 3, "秋季"));
 
 

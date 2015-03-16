@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bank.root.myapplication.ConnectionChangeReceiver;
+import Util.ConnectionChangeReceiver;
 import com.bank.root.myapplication.GetInformation;
 import com.bank.root.myapplication.R;
 import com.bank.root.myapplication.bean.LocalAddress;

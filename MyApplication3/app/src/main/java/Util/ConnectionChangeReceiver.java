@@ -1,4 +1,4 @@
-package com.bank.root.myapplication;
+package Util;
 
 /**
  * Created by root on 15-3-9.
